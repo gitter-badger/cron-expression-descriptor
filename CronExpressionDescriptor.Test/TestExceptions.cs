@@ -9,8 +9,15 @@ namespace CronExpressionDescriptor.Test
     [TestFixture]
     public class TestExceptions
     {
+#if DOTNETCORE
+        [Test]
+        public void TestNullCronExpressionExceptionHelper() {
+            Assert.That(() => TestNullCronExpressionException(), Throws.TypeOf<MissingFieldException>());
+        }
+#else
         [Test]
         [ExpectedException(typeof(MissingFieldException))]
+#endif
         public void TestNullCronExpressionException()
         {
             Options options = new Options() { ThrowExceptionOnParseError = true };
@@ -18,8 +25,15 @@ namespace CronExpressionDescriptor.Test
             ceh.GetDescription(DescriptionTypeEnum.FULL);
         }
 
+#if DOTNETCORE
+        [Test]
+        public void TestEmptyCronExpressionExceptionHelper() {
+            Assert.That(() => TestEmptyCronExpressionException(), Throws.TypeOf<MissingFieldException>());
+        }
+#else
         [Test]
         [ExpectedException(typeof(MissingFieldException))]
+#endif
         public void TestEmptyCronExpressionException()
         {
             Options options = new Options() { ThrowExceptionOnParseError = true };
@@ -35,8 +49,15 @@ namespace CronExpressionDescriptor.Test
             Assert.AreEqual("Field 'ExpressionDescriptor.expression' not found.", ceh.GetDescription(DescriptionTypeEnum.FULL));
         }
 
+#if DOTNETCORE
+        [Test]
+        public void TestInvalidCronExpressionExceptionHelper() {
+            Assert.That(() => TestInvalidCronExpressionException(), Throws.TypeOf<FormatException>());
+        }
+#else
         [Test]
         [ExpectedException(typeof(FormatException))]
+#endif
         public void TestInvalidCronExpressionException()
         {
             Options options = new Options() { ThrowExceptionOnParseError = true };
@@ -51,9 +72,15 @@ namespace CronExpressionDescriptor.Test
             ExpressionDescriptor ceh = new ExpressionDescriptor("INVALID CRON", options);
             Assert.AreEqual("Error: Expression only has 2 parts.  At least 5 part are required.", ceh.GetDescription(DescriptionTypeEnum.FULL));
         }
-
+#if DOTNETCORE
+        [Test]
+        public void TestInvalidSyntaxExceptionHelper() {
+            Assert.That(()=>TestInvalidSyntaxException(), Throws.TypeOf<FormatException>());
+        }
+#else
         [Test]
         [ExpectedException(typeof(FormatException))]
+#endif
         public void TestInvalidSyntaxException()
         {
             Options options = new Options() { ThrowExceptionOnParseError = true };

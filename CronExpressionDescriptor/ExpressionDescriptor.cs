@@ -38,7 +38,11 @@ namespace CronExpressionDescriptor
             m_options = options;
             m_expressionParts = new string[7];
             m_parsed = false;
+#if DOTNETCORE
+            m_culture = CultureInfo.DefaultThreadCurrentUICulture;
+#else
             m_culture = Thread.CurrentThread.CurrentUICulture;
+#endif
         }
 
         /// <summary>
@@ -632,10 +636,18 @@ namespace CronExpressionDescriptor
             switch (caseType)
             {
                 case CasingTypeEnum.Sentence:
+#if DOTNETCORE
+                    description = string.Concat(CultureInfo.DefaultThreadCurrentCulture.TextInfo.ToUpper(description[0]), description.Substring(1));
+#else
                     description = string.Concat(Thread.CurrentThread.CurrentCulture.TextInfo.ToUpper(description[0]), description.Substring(1));
+#endif
                     break;
                 case CasingTypeEnum.Title:
+#if DOTNETCORE
+                    throw new NotImplementedException(nameof(TransformCase));
+#else
                     description = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(description);
+#endif
                     break;
                 default:
                     description = description.ToLower();
@@ -645,7 +657,7 @@ namespace CronExpressionDescriptor
             return description;
         }
 
-        #region Static
+#region Static
         /// <summary>
         /// Generates a human readable string for the Cron Expression 
         /// </summary>

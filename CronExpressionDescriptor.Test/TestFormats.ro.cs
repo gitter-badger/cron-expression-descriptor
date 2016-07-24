@@ -19,8 +19,13 @@
         public void SetUp()
         {
             CultureInfo myCultureInfo = new CultureInfo("ro-RO");
+#if DOTNETCORE
+            CultureInfo.DefaultThreadCurrentCulture = myCultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = myCultureInfo;
+#else
             Thread.CurrentThread.CurrentCulture = myCultureInfo;
             Thread.CurrentThread.CurrentUICulture = myCultureInfo;
+#endif
         }
 
         void Harness (string cron, string expected, string expectedVerbose)

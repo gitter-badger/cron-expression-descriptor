@@ -12,8 +12,13 @@ namespace CronExpressionDescriptor.Test
         public void SetUp()
         {
             CultureInfo myCultureInfo = new CultureInfo("it-IT");
+#if DOTNETCORE
+            CultureInfo.DefaultThreadCurrentCulture = myCultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = myCultureInfo;
+#else
             Thread.CurrentThread.CurrentCulture = myCultureInfo;
             Thread.CurrentThread.CurrentUICulture = myCultureInfo;
+#endif
         }
 
         [Test]

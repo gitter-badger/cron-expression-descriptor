@@ -17,7 +17,11 @@ namespace CronExpressionDescriptor
             this.Use24HourTimeFormat = false;
 
             //culture specific default options
+#if DOTNETCORE
+            CultureInfo cultureInfo = CultureInfo.DefaultThreadCurrentUICulture;
+#else
             CultureInfo cultureInfo = Thread.CurrentThread.CurrentUICulture;
+#endif
             if (cultureInfo.Equals(new CultureInfo("ru-RU")) //Russian
                 || cultureInfo.Equals(new CultureInfo("uk-UA")) //Ukraninian
                 || cultureInfo.Equals(new CultureInfo("de-DE")) //German

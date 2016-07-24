@@ -39,7 +39,11 @@ namespace CronExpressionDescriptor
 
             if (string.IsNullOrEmpty(m_expression))
             {
+#if DOTNETCORE
+                throw new MissingFieldException($@"ExpressionDescriptor {nameof(m_expression)} can not be null or empty");
+#else
                 throw new MissingFieldException("ExpressionDescriptor", "expression");
+#endif
             }
             else
             {

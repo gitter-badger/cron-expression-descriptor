@@ -10,8 +10,12 @@
 
 namespace CronExpressionDescriptor {
     using System;
-    
-    
+#if DOTNETCORE
+    using System.Globalization;
+#endif
+    using System.Reflection;
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -25,7 +29,7 @@ namespace CronExpressionDescriptor {
     internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
@@ -39,7 +43,11 @@ namespace CronExpressionDescriptor {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
+#if DOTNETCORE
+                    System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CronExpressionDescriptor.Resources", typeof(Resources).GetTypeInfo().Assembly);
+#else
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CronExpressionDescriptor.Resources", typeof(Resources).Assembly);
+#endif
                     resourceMan = temp;
                 }
                 return resourceMan;
