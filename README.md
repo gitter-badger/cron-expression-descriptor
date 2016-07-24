@@ -1,5 +1,7 @@
 ﻿Cron Expression Descriptor
 ==========================
+
+[![Join the chat at https://gitter.im/lovedotnet/cron-expression-descriptor](https://badges.gitter.im/lovedotnet/cron-expression-descriptor.svg)](https://gitter.im/lovedotnet/cron-expression-descriptor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 A .NET library that converts cron expressions into human readable descriptions.
 
 [![Build Status](https://img.shields.io/travis/bradyholt/cron-expression-descriptor.svg?branch=master)](https://travis-ci.org/bradyholt/cron-expression-descriptor)
